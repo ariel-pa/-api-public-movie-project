@@ -60,6 +60,6 @@ npm run start
 - Registro de nuevos usuarios
 - Mostrar la lista de peliculas
 - Ver información de cada pelicula
-- agregar a mis peliculas
+- Agregar a mis peliculas
 - Cambio de theme dark o light 
 - Responsivo
