@@ -22,6 +22,7 @@ const style = {
 
 const PeliculaWidget = ({ imdbID, Poster, Title }) => {
     const user = useSelector((state) => state.user);
+    const token = useSelector((state) => state.token);
     const theme = useTheme();
     const navigate = useNavigate();
     const dark = theme.palette.neutral.dark;
@@ -38,25 +39,28 @@ const PeliculaWidget = ({ imdbID, Poster, Title }) => {
 
     const addFavoritePelicula = async (imdbID) => {
         const jsonData = {
-            id: user.id,
+            id_user: user.id,
             imdbID: imdbID,
-          };
-          console.log(jsonData);
-          const savedMiPelicula = await fetch(
+        };
+        console.log(jsonData);
+        const savedMiPelicula = await fetch(
             `${Constant.baseUrl}/mis-peliculas`,
             {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(jsonData),
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(jsonData),
             }
-          );
-          const savedPelicula = await savedMiPelicula.json()
-    
-          if (savedPelicula) {
+        );
+        const savedPelicula = await savedMiPelicula.json()
+        if (savedPelicula.message) {
+            alert(savedPelicula.message);
+        } else {
+            alert('Película agregada :)');
             navigate("/home");
-          }
+        }
     }
 
     return (
@@ -118,25 +122,25 @@ const PeliculaWidget = ({ imdbID, Poster, Title }) => {
                                 },
                             }}
                         >
-                             Añadir a mis peliculas
+                            Añadir a mis peliculas
                         </Button>
                     </>
-                ): (
+                ) : (
                     <Button
-                            fullWidth
-                            onClick={() => handleOpen(imdbID)}
-                            sx={{
-                                m: "0.5rem 0",
-                                p: "1rem",
-                                backgroundColor: theme.palette.primary.main,
-                                color: theme.palette.background.alt,
-                                "&:hover": {
-                                    color: theme.palette.primary.main
-                                },
-                            }}
-                        >
-                            Ver mas
-                        </Button>
+                        fullWidth
+                        onClick={() => handleOpen(imdbID)}
+                        sx={{
+                            m: "0.5rem 0",
+                            p: "1rem",
+                            backgroundColor: theme.palette.primary.main,
+                            color: theme.palette.background.alt,
+                            "&:hover": {
+                                color: theme.palette.primary.main
+                            },
+                        }}
+                    >
+                        Ver mas
+                    </Button>
                 )}
 
                 <Modal
@@ -174,7 +178,7 @@ const PeliculaWidget = ({ imdbID, Poster, Title }) => {
 
                         {user ? (
                             <>
-                             <Button variant="contained" color="primary" onClick={() => addFavoritePelicula(imdbID)}>
+                                <Button variant="contained" color="primary" onClick={() => addFavoritePelicula(imdbID)}>
                                     Añadir a mis peliculas
                                 </Button>
                                 <br /><br />

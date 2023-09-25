@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { sequelize } from "./database/database.js";
 import authRoutes from "./routes/auth.js";
 import { register } from './controllers/auth.js';
+import myMovies from "./routes/myMovies.js";
 import { verifyToken } from "./middleware/auth.js";
 
 /* CONFIGURATION */
@@ -18,6 +19,7 @@ app.use(cors());
 /* ROUTES */
 app.post("/auth/register", register);
 app.use("/auth", authRoutes);
+app.use("/", myMovies);
 
 
 

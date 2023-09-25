@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
+import { MyMovies } from "./MyMovies.js"
 
 export const User = sequelize.define(
     "users",
@@ -26,3 +27,12 @@ export const User = sequelize.define(
         timestamps: false,
     }
 );
+//UNO A MUCHOS
+User.hasMany(MyMovies, {
+    foreignKey: 'id_user',
+    sourceKey: 'id',
+});
+MyMovies.belongsTo(User, {
+    foreignKey: 'id_user',
+    targetKey: 'id',
+});
