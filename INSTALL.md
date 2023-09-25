@@ -1,4 +1,4 @@
-# Proyecto consumo de una api publica de peliculas
+# Proyecto consumo de api publica de peliculas
 
 ## 2. Instalación
 
@@ -60,5 +60,6 @@ npm run start
 - Registro de nuevos usuarios
 - Mostrar la lista de peliculas
 - Ver información de cada pelicula
+- agregar a mis peliculas
 - Cambio de theme dark o light 
 - Responsivo
